@@ -13,21 +13,20 @@ jobs:
       context: .
       dockerfile: ./Dockerfile
     secrets: inherit
-#  deploy-dev:
-#    if: github.ref == 'refs/heads/dev'
-#    uses: NaturalSelectionLabs/Daedalus/.github/workflows/deploy-v3-tpl.yaml@main
-#    needs:
-#      - build
-#    with:
-#      images: followis/follow-server
-#      tag: sha-${{ github.sha }}
-#      cluster: dev
-#      namespace: follow
-#      releaseName: follow-server
-#      revision: dev
-#      dir: deploy/dev
-#    secrets:
-#      ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
+  deploy-dev:
+    uses: NaturalSelectionLabs/Daedalus/.github/workflows/deploy-v3-tpl.yaml@main
+    needs:
+      - build
+    with:
+      images: rss3/snowflake-id
+      tag: sha-${{ github.sha }}
+      cluster: dev
+      namespace: guardian
+      releaseName: snowflake-id
+      revision: main
+      dir: deploy/dev
+    secrets:
+      ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
 #  deploy-prod:
 #    if: github.ref == 'refs/heads/main'
 #    uses: NaturalSelectionLabs/Daedalus/.github/workflows/deploy-v3-tpl.yaml@main
